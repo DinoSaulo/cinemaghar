@@ -1,11 +1,35 @@
-import react from "react";
-import NavBar from "./NavBar";
+import React from "react";
 import {data} from '../data';
+import NavBar from "./NavBar";
 import MovieCard from "./MovieCard";
 
 
-function App() {
-  return (
+class App extends React.Component{
+
+ componentDidMount () {
+
+   const {store} = this.props;
+
+
+        store.subscribe(()=> {
+          console.log("updated");
+          this.forceUpdate();
+        })   
+
+  // make api call
+
+  // tell the browser that yes we want to add these movies in store(dispatch an action)
+          
+             store.dispatch({
+             type: 'ADD_MOVIES',
+             movies: data
+           });
+
+           console.log("STATE" , store.getState());
+ }
+ render(){
+  const movies = this.props.store.getState();
+    return (
     <div className="App">
          <NavBar/>
 
@@ -15,7 +39,7 @@ function App() {
               <div className="tab">FAVOURITES</div>
             </div>
             <div className="list">
-              {data.map((movie,index) => (
+              {movies.map((movie,index) => (
                      
                      <MovieCard movie={movie} key={`movie-${index}`} />
               ))}
@@ -24,5 +48,5 @@ function App() {
        </div>
   );
 }
-
+}
 export default App;

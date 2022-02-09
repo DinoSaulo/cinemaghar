@@ -15,17 +15,8 @@ console.log("before getstate" , store.getState());
 
 
 
-store.dispatch({
-  type: 'ADD_MOVIES',
-  movies: [{name: "superman"}]
-});
-
-
-console.log("after getstate" , store.getState());
-
-
 ReactDOM.render(
-  <App />,
+  <App store={store} />,
   document.getElementById('root')
 );
 
