@@ -14,8 +14,9 @@ class App extends React.Component{
 
 
         store.subscribe(()=> {
-          console.log("updated");
+            console.log("store" , store.getState());
           this.forceUpdate();
+
         })   
 
   // make api call
@@ -23,11 +24,28 @@ class App extends React.Component{
   // tell the browser that yes we want to add these movies in store(dispatch an action)
           
              store.dispatch(addMovies(data));
-             console.log("STATE" , store.getState());
+            console.log("state" , this.props.store.getState());
  }
+
+  isMovieFavourite = (movie) =>{
+    const{favourites} = this.props.store.getState();
+      
+    const index = favourites.indexOf(movie);
+
+    if(index !== -1)
+    {
+      return true;
+    }
+
+    return false;
+ 
+
+  }
+
+
  render(){
   const {list} = this.props.store.getState();  //{list:[], favourites:[]}
-  console.log("list" , list)
+  
     return (
     <div className="App">
          <NavBar/>
@@ -40,7 +58,11 @@ class App extends React.Component{
             <div className="list">
               {list.map((movie,index) => (
                      
-                     <MovieCard movie={movie} key={`movie-${index}`} />
+                     <MovieCard movie={movie}
+                      key={`movie-${index}`}
+                       dispatch={this.props.store.dispatch}
+                       isFavourite = {this.isMovieFavourite(movie)}
+                       />
               ))}
             </div>
           </div>
