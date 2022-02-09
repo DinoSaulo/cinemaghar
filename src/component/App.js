@@ -23,11 +23,11 @@ class App extends React.Component{
   // tell the browser that yes we want to add these movies in store(dispatch an action)
           
              store.dispatch(addMovies(data));
-
-           console.log("STATE" , store.getState());
+             console.log("STATE" , store.getState());
  }
  render(){
-  const movies = this.props.store.getState();
+  const {list} = this.props.store.getState();  //{list:[], favourites:[]}
+  console.log("list" , list)
     return (
     <div className="App">
          <NavBar/>
@@ -38,7 +38,7 @@ class App extends React.Component{
               <div className="tab">FAVOURITES</div>
             </div>
             <div className="list">
-              {movies.map((movie,index) => (
+              {list.map((movie,index) => (
                      
                      <MovieCard movie={movie} key={`movie-${index}`} />
               ))}
