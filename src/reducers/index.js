@@ -1,10 +1,12 @@
 import {ADD_MOVIES} from '../actions';
 import {ADD_TO_FAVOURITE} from '../actions';
 import {REMOVE_FROM_FAVOURITES} from '../actions';
-
+import {SET_SHOW_FAVOURITES} from '../actions';
+ 
 const initialMoviesState = {
     list: [],
-    favourites: []
+    favourites: [],
+    showFavourites: false
 }
 
 
@@ -26,12 +28,17 @@ export default function movies(state = initialMoviesState , action){
                       const filteredArray = state.favourites.filter(
                           movie => movie.Title!==action.movie.Title
                       );
-
                         return {
                            ...state,
                            favourites: filteredArray
 
                        }
+
+                       case SET_SHOW_FAVOURITES:
+                        return {
+                            ...state,
+                            showFavourites: action.val
+                        }
           
               default:
                   return state;
