@@ -5,11 +5,11 @@ import {createStore} from 'redux';
 
 import './index.css';
 import App from './component/App';
-import rootReducer from './reducers';
+import combineReducers from './reducers';
 
 
 
-const store = createStore(rootReducer);
+const store = createStore(combineReducers);
 
 console.log('store' , store);
 
